@@ -136,11 +136,11 @@ persistence:
   ## If true, alertmanager will create/use a Persistent Volume Claim
   ## If false, use emptyDir
   ##
-  enabled: false
+  enabled: true
   annotations: {}
   #  helm.sh/resource-policy: keep
   persistentVolumeClaim:
-    existingClaim: ""
+    existingClaim: "pvc-search-engine"
     ## milvus data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -149,7 +149,7 @@ persistence:
     ##
     storageClass:
     accessModes: ReadWriteMany
-    size: 50Gi
+    size: 64Gi
     subPath: ""
 
 logsPersistence:
@@ -204,8 +204,13 @@ readinessProbe:
   timeoutSeconds: 10
   failureThreshold: 3
 
-nodeSelector: {}
-tolerations: []
+nodeSelector:
+  pool-name: e2-standard-2-pool
+tolerations:
+  - effect: "NoSchedule"
+    key: "node.yoon-side.com/e2-standard-2"
+    operator: "Exists"
+
 affinity: {}
 ## Additional deployment annotations
 podAnnotations: {}
@@ -318,18 +323,18 @@ admin:
 ## use External Backend
 ## only support mysql now
 externalMysql:
-  enabled: false
-  ip:
-  port:
-  user:
-  password:
-  database:
+  enabled: True
+  ip: 172.20.32.3
+  port: 3306
+  user: milvus
+  password: mucosae8hillock2girdle
+  database: search_engine
 
 ## Configuration values for the mysql dependency
 ## ref: https://github.com/kubernetes/charts/blob/master/stable/mysql/README.md
 ##
 mysql:
-  enabled: true
+  enabled: False
   name: mysql
   imageTag: "5.7.30"
   imagePullPolicy: IfNotPresent
