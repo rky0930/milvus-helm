@@ -148,7 +148,7 @@ persistence:
     ##   set, choosing the default provisioner.
     ##
     storageClass:
-    accessModes: ReadWriteMany
+    accessModes: ReadWriteOnce
     size: 50Gi
     subPath: ""
 
@@ -169,7 +169,7 @@ logsPersistence:
     ##   set, choosing the default provisioner.
     ##
     storageClass:
-    accessModes: ReadWriteMany
+    accessModes: ReadWriteOnce
     size: 5Gi
     subPath: ""
 
@@ -276,7 +276,7 @@ readonly:
 
 ## Milvus Admin Configuration
 admin:
-  enabled: false
+  enabled: true
   image:
     repository: milvusdb/milvus-em
     tag: v0.4.0
