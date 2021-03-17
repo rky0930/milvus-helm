@@ -140,7 +140,7 @@ persistence:
   annotations: {}
   #  helm.sh/resource-policy: keep
   persistentVolumeClaim:
-    existingClaim: "pvc-search-engine"
+    existingClaim: "pv-claim-search-engine"
     ## milvus data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -149,7 +149,7 @@ persistence:
     ##
     storageClass:
     accessModes: ReadWriteMany
-    size: 64Gi
+    size: 100Gi
     subPath: ""
 
 logsPersistence:
